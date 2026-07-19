@@ -106,3 +106,51 @@ st.markdown(
     "Python · Streamlit · Pandas · NumPy · Scikit-Learn · Plotly · SHAP · Joblib"
 )
 glass_end()
+
+# ------------------------------------------------------ ABOUT DEVELOPER ---
+glass_start(strong=True)
+section_header("👨‍💻 About the Developer")
+st.markdown(
+    "Hi, I'm **Nirnay Malviya**, a B.Tech CSE (AI & ML) student at "
+    "**Lovely Professional University (LPU)**. I completed an **Online AI & "
+    "Machine Learning Summer Internship at EduNiketan**, where I learned the "
+    "fundamentals of machine learning and AI application development. Using "
+    "the skills gained during the internship, I developed **IrisVision AI**, "
+    "an interactive web application that classifies iris flowers, compares "
+    "multiple machine learning models, and explains predictions through "
+    "Explainable AI."
+)
+
+with st.expander("💼 Internship experience"):
+    st.markdown(
+        "This project was developed after successfully completing an "
+        "**Online AI & Machine Learning Summer Internship** conducted by "
+        "**EduNiketan** through live interactive training sessions.\n\n"
+        "During the internship, I gained practical knowledge of:\n"
+        "- Machine Learning Fundamentals\n"
+        "- Data Preprocessing\n"
+        "- Exploratory Data Analysis (EDA)\n"
+        "- Classification Algorithms\n"
+        "- Model Evaluation\n"
+        "- Explainable AI\n"
+        "- Streamlit Web Application Development\n"
+        "- Python and Scikit-learn\n\n"
+        "The knowledge acquired during this internship helped me design and "
+        "implement IrisVision AI, an end-to-end machine learning application "
+        "that demonstrates multiple classification models, model comparison, "
+        "explainability, and real-time predictions."
+    )
+glass_end()
+
+# ------------------------------------------------------------- FOOTER -----
+st.markdown(
+    """
+    <div style="text-align:center; padding: 1.5rem 0 0.5rem 0; color: #a3a3a8; font-size: 0.85rem;">
+        Developed by <strong style="color:#f2f2f2;">Nirnay Malviya</strong><br>
+        B.Tech CSE (AI & ML) &bull; Lovely Professional University (LPU)<br>
+        Summer Internship: EduNiketan – AI &amp; Machine Learning (Live Online Training)<br>
+        Technologies: Python &bull; Scikit-learn &bull; Pandas &bull; NumPy &bull; Plotly &bull; SHAP &bull; Streamlit
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
