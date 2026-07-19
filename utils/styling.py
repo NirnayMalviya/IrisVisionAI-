@@ -50,27 +50,33 @@ em, i, .serif-accent {
 footer {visibility: hidden;}
 header {background: transparent !important;}
 
-/* ---------- Glass panels ---------- */
-.glass-light {
-    background: var(--glass-light-bg);
+/* ---------- Glass panels ----------
+   These target the real Streamlit container wrapper produced by
+   st.container(key=f"light_..."/"strong_...", border=True) - see
+   glass_container() in styling.py. Streamlit adds a stable class of the
+   form `st-key-<key>` to that wrapper, so matching on a class-name
+   substring lets one CSS rule style every panel of that kind, however
+   many are created across pages. */
+div[class*="st-key-light_"] {
+    background: var(--glass-light-bg) !important;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    border: 1px solid var(--glass-border);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-    border-radius: 1rem;
-    padding: 1.5rem 1.75rem;
-    margin-bottom: 1.25rem;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08) !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem 1.75rem !important;
+    margin-bottom: 1.25rem !important;
 }
 
-.glass-strong {
-    background: var(--glass-strong-bg);
+div[class*="st-key-strong_"] {
+    background: var(--glass-strong-bg) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 32px rgba(0,0,0,0.35);
-    border-radius: 1.25rem;
-    padding: 2rem 2.25rem;
-    margin-bottom: 1.5rem;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 32px rgba(0,0,0,0.35) !important;
+    border-radius: 1.25rem !important;
+    padding: 2rem 2.25rem !important;
+    margin-bottom: 1.5rem !important;
 }
 
 /* ---------- Hero ---------- */
@@ -214,15 +220,22 @@ def inject_css():
     st.markdown(CSS, unsafe_allow_html=True)
 
 
-def glass_start(strong: bool = False):
-    """Opens a glass-panel div. Must be paired with glass_end()."""
-    cls = "glass-strong" if strong else "glass-light"
-    st.markdown(f'<div class="{cls}">', unsafe_allow_html=True)
+def glass_container(key: str, strong: bool = False):
+    """
+    Returns a real Streamlit container that visually renders as a glass
+    panel. Unlike writing raw <div> HTML via st.markdown (which produces
+    empty, non-wrapping boxes because every st.* call is its own isolated
+    DOM node), st.container(key=..., border=True) creates one actual DOM
+    element with a stable CSS class (`st-key-<key>`) that its children are
+    rendered inside of - so the panel background/blur correctly wraps
+    whatever is written inside the `with` block.
 
-
-def glass_end():
-    """Closes a glass-panel div opened by glass_start()."""
-    st.markdown("</div>", unsafe_allow_html=True)
+    Usage:
+        with glass_container("hero", strong=True):
+            st.markdown("...")
+    """
+    prefix = "strong" if strong else "light"
+    return st.container(border=True, key=f"{prefix}_{key}")
 
 
 def render_pills(labels):
